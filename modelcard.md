@@ -1,1 +1,62 @@
-# Model Card, syn-IMM computational simulator## Model details- **Model name:** Synthetic Inner Mitochondrial Membrane (syn-IMM) Simulator- **Model type:** Mechanistic, dynamical systems model, ordinary difference equations at fixed timestep, with optional Monte Carlo sampling.- **Core states:**  - Baseline notebook, ?? proxy, exported ATP.  - Extension notebook, ?? (mV), ?pH (pH units), ?p (mV), CoQ redox pool fraction (QH2), supercomplex fraction S(t).- **Primary outputs:** ??, ?pH, ?p, ATP synthesis rate, exported ATP rate, accumulated ATP, CoQ redox state, supercomplex fraction.## Intended use- Hypothesis testing about which IMM modules dominate performance, cardiolipin dependence, leak sensitivity, and transport limitations.- Building intuition for design tradeoffs in a synthetic membrane context.- Generating figures and tables for conceptual, educational, or proposal work.## Out of scope- Predicting absolute rates in a specific experimental preparation without re-calibration.- Replacing biophysical, structural, or kinetic measurements in real membranes.- Any wet-lab design or execution guidance.## Training dataThis is not a trained statistical model, there is no training dataset. Parameters are chosen by calibration to ranges reported in scientific journal-indexed literature and by internal consistency checks.## Key scientific assumptions1. **?p partition** is approximated by ?p (mV) = ?? + 60á?pH, a widely used Nernst conversion. Perry et al., 2011. https://pmc.ncbi.nlm.nih.gov/articles/PMC3115691/2. **Cardiolipin dependence** is represented as a functional modifier of organization and supercomplex stability, consistent with cardiolipinÕs requirement for supercomplex formation in classic reconstitution and stability studies. Zhang et al., 2002. https://pubmed.ncbi.nlm.nih.gov/12364341/3. **ATP synthase dependence on pmf** is modeled as a steep nonlinear function of ?p, capturing the experimentally observed threshold-like behavior of ATP synthesis vs driving force in reconstituted systems, the exact curve is parameterized for plausibility. Kaim and Dimroth, 1998. https://pubmed.ncbi.nlm.nih.gov/9738451/4. **CoQ pool** is finite and introduces redox buffering and saturation effects, with pool sizes anchored to tissue-scale measurements. Burger et al., 2020. https://pmc.ncbi.nlm.nih.gov/articles/PMC6975167/5. **Supercomplex fraction S(t)** is a kinetic state with CL-dependent k_on and k_off, used as a minimal abstraction of dynamic organization, not a structural resolution model. Zhang et al., 2002. https://pubmed.ncbi.nlm.nih.gov/12364341/## EvaluationWe use pragmatic acceptance tests rather than formal predictive accuracy.### Qualitative acceptance criteria- Stable ?? and ?p in physiological ranges under low leak, and collapse under high leak.- ATP output increases with improved coupling, increased ATP synthase capacity, and favorable cardiolipin range, and decreases with increased leak or transport limitation.- CoQ redox pool shows saturating behavior, qh2 approaches 1 when oxidation is limiting, approaches 0 when reduction is limiting.- Supercomplex fraction increases with cardiolipin and affects throughput in the expected direction.### Quantitative sanity checks (typical targets)- ?? ~150Ð180 mV range is a common physiological reference. Brand and Nicholls, 2011. https://pmc.ncbi.nlm.nih.gov/articles/PMC3076726/- Cardiolipin in IMM is frequently reported around 15Ð20% of phospholipids. Pennington et al., 2019. https://pmc.ncbi.nlm.nih.gov/articles/PMC6482085/## Limitations- Lumped kinetics, no explicit Complex I, III, IV mechanistic intermediates, and no explicit proton stoichiometry mapping to ?? and ?pH beyond a simplified gain model.- No explicit ROS generation, and no explicit cytochrome c pool dynamics.- Supercomplex state S(t) is a coarse abstraction, not a structural model.- Parameter uncertainty is large across organisms, tissues, detergents, and reconstitution methods, Monte Carlo exploration is provided to handle uncertainty qualitatively.## Ethical and safety notesThis model is intended for benign scientific use, education, and research planning. It does not provide experimental assembly protocols.## References, PubMed indexedAnderson, S., et al. (1981). Sequence and organization of the human mitochondrial genome. Nature, 290(5806), 457Ð465. https://www.nature.com/articles/290457a0Ê Blum, T. B., et al. (2019). Dimers of mitochondrial ATP synthase induce membrane curvature and self-assemble into rows. Proceedings of the National Academy of Sciences of the United States of America, 116(10), 4250Ð4255. https://www.pnas.org/doi/10.1073/pnas.1816556116Ê Brand, M. D., & Nicholls, D. G. (2011). Assessing mitochondrial dysfunction in cells. Biochemical Journal, 435(2), 297Ð312. https://portlandpress.com/biochemj/article/435/2/297/45704/Assessing-mitochondrial-dysfunction-in-cellsÊ Burger, N., et al. (2020). A sensitive mass spectrometric assay for mitochondrial CoQ pool redox state in vivo. Free Radical Biology and Medicine, 147, 37Ð47. https://www.sciencedirect.com/science/article/pii/S0891584919315655Ê Kaim, G., & Dimroth, P. (1998). ATP synthesis by the F1Fo ATP synthase of Escherichia coli is obligatorily dependent on the electric potential. FEBS Letters, 434(1Ð2), 57Ð60. https://febs.onlinelibrary.wiley.com/doi/10.1016/S0014-5793%2898%2900969-7Ê Kreiter, J., et al. (2020). A fluorescence-based method to measure ADP/ATP exchange of adenine nucleotide translocase in liposomes. Biomolecules, 10(5), 685. https://www.mdpi.com/2218-273X/10/5/685Ê Pennington, E. R., et al. (2019). The role of cardiolipin concentration and acyl chain composition on mitochondrial inner membrane molecular organization and function. Biochimica et Biophysica Acta (BBA) Ð Molecular and Cell Biology of Lipids, 1864(7), 1039Ð1052. https://www.sciencedirect.com/science/article/abs/pii/S1388198119300472Ê Perry, S. W., et al. (2011). Mitochondrial membrane potential probes and the proton gradient: A practical usage guide. BioTechniques, 50(2), 98Ð115. https://www.tandfonline.com/doi/full/10.2144/000113610Ê Zhang, M., et al. (2002). Gluing the respiratory chain together: Cardiolipin is required for supercomplex formation in the inner mitochondrial membrane. Journal of Biological Chemistry, 277(46), 43553Ð43556. https://www.jbc.org/article/S0021-9258%2819%2971687-1/fulltextÊ 
+# Model Card, syn-IMM computational simulator
+## Model details
+- **Model name:** Synthetic Inner Mitochondrial Membrane (syn-IMM) Simulator
+- **Model type:** Mechanistic, dynamical systems model, ordinary difference equations at fixed timestep, with optional Monte Carlo sampling.
+- **Core states:**
+  - Baseline notebook, Î”Ïˆ proxy, exported ATP.
+  - Extension notebook, Î”Ïˆ (mV), Î”pH (pH units), Î”p (mV), CoQ redox pool fraction (QH2), supercomplex fraction S(t).
+- **Primary outputs:** Î”Ïˆ, Î”pH, Î”p, ATP synthesis rate, exported ATP rate, accumulated ATP, CoQ redox state, supercomplex fraction.
+## Intended use
+- Hypothesis testing about which IMM modules dominate performance, cardiolipin dependence, leak sensitivity, and transport limitations.
+- Building intuition for design tradeoffs in a synthetic membrane context.
+- Generating figures and tables for conceptual, educational, or proposal work.
+
+## Out of scope
+- Predicting absolute rates in a specific experimental preparation without re-calibration.
+- Replacing biophysical, structural, or kinetic measurements in real membranes.
+- Any wet-lab design or execution guidance.
+
+## Training data
+This is not a trained statistical model, there is no training dataset. Parameters are chosen by calibration to ranges reported in PubMed-indexed literature and by internal consistency checks.
+
+## Key scientific assumptions
+1. **Î”p partition** is approximated by Î”p (mV) = Î”Ïˆ + 60Â·Î”pH, a widely used Nernst conversion. Perry et al., 2011. https://pmc.ncbi.nlm.nih.gov/articles/PMC3115691/
+2. **Cardiolipin dependence** is represented as a functional modifier of organization and supercomplex stability, consistent with cardiolipinâ€™s requirement for supercomplex formation in classic reconstitution and stability studies. Zhang et al., 2002. https://pubmed.ncbi.nlm.nih.gov/12364341/
+3. **ATP synthase dependence on pmf** is modeled as a steep nonlinear function of Î”p, capturing the experimentally observed threshold-like behavior of ATP synthesis vs driving force in reconstituted systems, the exact curve is parameterized for plausibility. Kaim and Dimroth, 1998. https://pubmed.ncbi.nlm.nih.gov/9738451/
+4. **CoQ pool** is finite and introduces redox buffering and saturation effects, with pool sizes anchored to tissue-scale measurements. Burger et al., 2020. https://pmc.ncbi.nlm.nih.gov/articles/PMC6975167/
+5. **Supercomplex fraction S(t)** is a kinetic state with CL-dependent k_on and k_off, used as a minimal abstraction of dynamic organization, not a structural resolution model. Zhang et al., 2002. https://pubmed.ncbi.nlm.nih.gov/12364341/
+
+## Evaluation
+We use pragmatic acceptance tests rather than formal predictive accuracy.
+
+### Qualitative acceptance criteria
+- Stable Î”Ïˆ and Î”p in physiological ranges under low leak, and collapse under high leak.
+- ATP output increases with improved coupling, increased ATP synthase capacity, and favorable cardiolipin range, and decreases with increased leak or transport limitation.
+- CoQ redox pool shows saturating behavior, qh2 approaches 1 when oxidation is limiting, approaches 0 when reduction is limiting.
+- Supercomplex fraction increases with cardiolipin and affects throughput in the expected direction.
+
+### Quantitative sanity checks (typical targets)
+- Î”Ïˆ ~150â€“180 mV range is a common physiological reference. Brand and Nicholls, 2011. https://pmc.ncbi.nlm.nih.gov/articles/PMC3076726/
+- Cardiolipin in IMM is frequently reported around 15â€“20% of phospholipids. Pennington et al., 2019. https://pmc.ncbi.nlm.nih.gov/articles/PMC6482085/
+
+## Limitations
+- Lumped kinetics, no explicit Complex I, III, IV mechanistic intermediates, and no explicit proton stoichiometry mapping to Î”Ïˆ and Î”pH beyond a simplified gain model.
+- No explicit ROS generation, and no explicit cytochrome c pool dynamics.
+- Supercomplex state S(t) is a coarse abstraction, not a structural model.
+- Parameter uncertainty is large across organisms, tissues, detergents, and reconstitution methods, Monte Carlo exploration is provided to handle uncertainty qualitatively.
+
+## Ethical and safety notes
+This model is intended for benign scientific use, education, and research planning. It does not provide experimental assembly protocols.
+
+## References, PubMed indexed
+- Anderson, S., et al. (1981). Sequence and organization of the human mitochondrial genome. Nature. https://pubmed.ncbi.nlm.nih.gov/7219534/
+- Zhang, M., Mileykovskaya, E., & Dowhan, W. (2002). Cardiolipin is required for supercomplex formation. J Biol Chem. https://pubmed.ncbi.nlm.nih.gov/12364341/
+- Blum, T. B., et al. (2019). ATP synthase dimers induce curvature and rows. PNAS. https://pubmed.ncbi.nlm.nih.gov/30760595/
+- Perry, C. G. R., et al. (2011). Bioenergetic partitioning, Î”Ïˆ and Î”pH, and Nernst conversion context. https://pmc.ncbi.nlm.nih.gov/articles/PMC3115691/
+- Burger, N., et al. (2020). Coenzyme Q, tissue pools and quantification. https://pmc.ncbi.nlm.nih.gov/articles/PMC6975167/
+- Brand, M. D., & Nicholls, D. G. (2011). Assessing mitochondrial dysfunction and Î”Ïˆ context. https://pmc.ncbi.nlm.nih.gov/articles/PMC3076726/
+- Pennington, E. R., et al. (2019). Cardiolipin composition and IMM context. https://pmc.ncbi.nlm.nih.gov/articles/PMC6482085/
+- Kaim, G., & Dimroth, P. (1998). ATP synthesis dependence on driving force in proteoliposomes. https://pubmed.ncbi.nlm.nih.gov/9738451/
+- Burger, N., et al. (2020). CoQ pools. https://pmc.ncbi.nlm.nih.gov/articles/PMC6975167/
+- Kreiter, J., et al. (2020). ANT transport benchmark in reconstitution. https://pmc.ncbi.nlm.nih.gov/articles/PMC7277544/
+
