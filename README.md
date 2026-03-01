@@ -71,7 +71,7 @@ This repository is **computational**. It does not include experimental protocols
 
 ## Citation
 
-Petalcorin, M.I.R. (2026). A Computational Synthetic Inner Mitochondrial Membrane Platform that Couples Cardiolipin-Dependent Supercomplex Kinetics, Coenzyme Q Redox Pool Dynamics, and Partitioned Proton Motive Force (Δψ and ΔpH). GitHub. https://github.com/mpetalcorin/Synthetic-Inner-Mitochondrial-Membrane-syn-IMM-Simulator
+**Petalcorin, M.I.R.** (2026). Computational Synthetic Inner Membrane Reveals Cardiolipin-Leak Control of ATP Output. *bioRxiv* 708092 (2026.02.25.), 1-20. https://doi.org/10.64898/2026.02.25.708092
 
 ## License
 MIT 
